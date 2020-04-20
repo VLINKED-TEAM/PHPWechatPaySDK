@@ -8,8 +8,12 @@
       "email": "735825608@qq.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "VlinkedWechatPay\\": "src/wechat_pay"
+    }
+  },
   "require": {
-    "phpmailer/phpmailer": "^5.2",
     "php": ">=5.6.0"
   }
 }
