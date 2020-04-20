@@ -4,6 +4,9 @@
 namespace VlinkedWechatPay\payload;
 
 
+use VlinkedWechatPay\base\WxPayConfigInterface;
+use VlinkedWechatPay\WxPayException;
+
 class WxPayNotifyResults extends WxPayResults
 {
     /**

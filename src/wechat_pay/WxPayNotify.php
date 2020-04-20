@@ -8,6 +8,10 @@ use VlinkedWechatPay\base\WxPayConfigInterface;
 use VlinkedWechatPay\payload\WxPayNotifyReply;
 use VlinkedWechatPay\payload\WxPayNotifyResults;
 
+/**
+ * Class WxPayNotify
+ * @package VlinkedWechatPay
+ */
 class WxPayNotify extends WxPayNotifyReply
 {
     private $config = null;

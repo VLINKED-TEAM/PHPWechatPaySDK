@@ -1,6 +1,8 @@
 <?php
 
 
+use VlinkedWechatPay\base\WxPayConfigInterface;
+
 class VLinkedPayAccount extends WxPayConfigInterface
 {
 

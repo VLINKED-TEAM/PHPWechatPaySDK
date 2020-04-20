@@ -1,10 +1,10 @@
 {
   "name": "vlinked/pay-wechat-sdk",
-  "description": "vlinked wechat pay",
+  "description": "微联达科技对微信支付官方phpsdk进行composer的封装",
   "type": "library",
   "authors": [
     {
-      "name": "Ai",
+      "name": "vlinked-ai",
       "email": "735825608@qq.com"
     }
   ],
