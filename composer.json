@@ -1,3 +1,15 @@
 {
-  "name": "vlinked/wechatpay"
+  "name": "vlinked/wechatpay",
+  "description": "vlinked wechat pay",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Ai",
+      "email": "735825608@qq.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^5.2",
+    "php": ">=5.6.0"
+  }
 }
