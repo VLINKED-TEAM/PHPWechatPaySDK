@@ -1,6 +1,8 @@
 <?php
 
-namespace VlinkedWechatPay\example;
+ini_set("display_errors", "On");//打开错误提示
+ini_set("error_reporting",E_ALL);//显示所有错误
+ini_set('date.timezone','Asia/Shanghai');
 /**
  *
  * example目录下为简单的支付样例，仅能用于搭建快速体验微信支付使用
@@ -8,31 +10,39 @@ namespace VlinkedWechatPay\example;
  * 请勿直接直接使用样例对外提供服务
  *
  **/
-
-require_once "../lib/WxPay.Api.php";
-require_once '../lib/WxPay.Notify.php';
-require_once "WxPay.Config.php";
+require_once "../vendor/autoload.php";
+require_once "WxConfig.php";
 require_once 'log.php';
+use VlinkedWechatPay\WxPayApi;
+use VlinkedWechatPay\WxPayNotify;
+use VlinkedWechatPay\serivce\WxPayOrderQuery;
 
 //初始化日志
-$logHandler = new CLogFileHandler("../logs/" . date('Y-m-d') . '.log');
+$logHandler= new CLogFileHandler("../logs/".date('Y-m-d').'.log');
 $log = Log::Init($logHandler, 15);
 
 class PayNotifyCallBack extends WxPayNotify
 {
-    //查询订单
+    /**
+     * 查询订单
+     * @param $transaction_id
+     * @return bool
+     * @throws \VlinkedWechatPay\WxPayException
+     */
     public function Queryorder($transaction_id)
     {
+
         $input = new WxPayOrderQuery();
         $input->SetTransaction_id($transaction_id);
 
-        $config = new WxPayConfig();
+        $config = new WxConfig();
         $result = WxPayApi::orderQuery($config, $input);
         Log::DEBUG("query:" . json_encode($result));
-        if (array_key_exists("return_code", $result)
+        if(array_key_exists("return_code", $result)
             && array_key_exists("result_code", $result)
             && $result["return_code"] == "SUCCESS"
-            && $result["result_code"] == "SUCCESS") {
+            && $result["result_code"] == "SUCCESS")
+        {
             return true;
         }
         return false;
@@ -52,7 +62,6 @@ class PayNotifyCallBack extends WxPayNotify
     }
 
     //重写回调处理函数
-
     /**
      * @param WxPayNotifyResults $data 回调解释出的参数
      * @param WxPayConfigInterface $config
@@ -63,14 +72,14 @@ class PayNotifyCallBack extends WxPayNotify
     {
         $data = $objData->GetValues();
         //TODO 1、进行参数校验
-        if (!array_key_exists("return_code", $data)
-            || (array_key_exists("return_code", $data) && $data['return_code'] != "SUCCESS")) {
+        if(!array_key_exists("return_code", $data)
+            ||(array_key_exists("return_code", $data) && $data['return_code'] != "SUCCESS")) {
             //TODO失败,不是支付成功的通知
             //如果有需要可以做失败时候的一些清理处理，并且做一些监控
             $msg = "异常异常";
             return false;
         }
-        if (!array_key_exists("transaction_id", $data)) {
+        if(!array_key_exists("transaction_id", $data)){
             $msg = "输入参数不正确";
             return false;
         }
@@ -78,12 +87,12 @@ class PayNotifyCallBack extends WxPayNotify
         //TODO 2、进行签名验证
         try {
             $checkResult = $objData->CheckSign($config);
-            if ($checkResult == false) {
+            if($checkResult == false){
                 //签名错误
                 Log::ERROR("签名错误...");
                 return false;
             }
-        } catch (Exception $e) {
+        } catch(Exception $e) {
             Log::ERROR(json_encode($e));
         }
 
@@ -93,7 +102,7 @@ class PayNotifyCallBack extends WxPayNotify
 
 
         //查询订单，判断订单真实性
-        if (!$this->Queryorder($data["transaction_id"])) {
+        if(!$this->Queryorder($data["transaction_id"])){
             $msg = "订单查询失败";
             return false;
         }
@@ -101,7 +110,7 @@ class PayNotifyCallBack extends WxPayNotify
     }
 }
 
-$config = new WxPayConfig();
+$config = new WxConfig();
 Log::DEBUG("begin notify");
 $notify = new PayNotifyCallBack();
 $notify->Handle($config, false);

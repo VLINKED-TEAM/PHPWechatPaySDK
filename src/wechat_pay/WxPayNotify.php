@@ -7,6 +7,7 @@ namespace VlinkedWechatPay;
 use VlinkedWechatPay\base\WxPayConfigInterface;
 use VlinkedWechatPay\payload\WxPayNotifyReply;
 use VlinkedWechatPay\payload\WxPayNotifyResults;
+use VlinkedWechatPay\WxPayApi;
 
 /**
  * Class WxPayNotify

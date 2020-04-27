@@ -3,7 +3,7 @@
 
 namespace VlinkedWechatPay\payload;
 
-
+use VlinkedWechatPay\payload\base\WxPayDataBase;
 /**
  *
  * 提交JSAPI输入对象

@@ -3,7 +3,7 @@
 
 namespace VlinkedWechatPay\payload;
 
-
+use VlinkedWechatPay\payload\base\WxPayDataBase;
 /**
  *
  * 测速上报输入对象

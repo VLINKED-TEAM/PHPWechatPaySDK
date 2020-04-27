@@ -1,6 +1,4 @@
 <?php
-
-namespace VlinkedWechatPay\example;
 //以下为日志
 
 interface ILogHandler
@@ -15,7 +13,7 @@ class CLogFileHandler implements ILogHandler
 
     public function __construct($file = '')
     {
-        $this->handle = fopen($file, 'a');
+        $this->handle = fopen($file,'a');
     }
 
     public function write($msg)
@@ -36,17 +34,14 @@ class Log
 
     private static $instance = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct(){}
 
-    private function __clone()
-    {
-    }
+    private function __clone(){}
 
-    public static function Init($handler = null, $level = 15)
+    public static function Init($handler = null,$level = 15)
     {
-        if (!self::$instance instanceof self) {
+        if(!self::$instance instanceof self)
+        {
             self::$instance = new self();
             self::$instance->__setHandle($handler);
             self::$instance->__setLevel($level);
@@ -55,8 +50,7 @@ class Log
     }
 
 
-    private function __setHandle($handler)
-    {
+    private function __setHandle($handler){
         $this->handler = $handler;
     }
 
@@ -79,14 +73,14 @@ class Log
     {
         $debugInfo = debug_backtrace();
         $stack = "[";
-        foreach ($debugInfo as $key => $val) {
-            if (array_key_exists("file", $val)) {
+        foreach($debugInfo as $key => $val){
+            if(array_key_exists("file", $val)){
                 $stack .= ",file:" . $val["file"];
             }
-            if (array_key_exists("line", $val)) {
+            if(array_key_exists("line", $val)){
                 $stack .= ",line:" . $val["line"];
             }
-            if (array_key_exists("function", $val)) {
+            if(array_key_exists("function", $val)){
                 $stack .= ",function:" . $val["function"];
             }
         }
@@ -101,7 +95,8 @@ class Log
 
     private function getLevelStr($level)
     {
-        switch ($level) {
+        switch ($level)
+        {
             case 1:
                 return 'debug';
                 break;
@@ -119,10 +114,11 @@ class Log
         }
     }
 
-    protected function write($level, $msg)
+    protected function write($level,$msg)
     {
-        if (($level & $this->level) == $level) {
-            $msg = '[' . date('Y-m-d H:i:s') . '][' . $this->getLevelStr($level) . '] ' . $msg . "\n";
+        if(($level & $this->level) == $level )
+        {
+            $msg = '['.date('Y-m-d H:i:s').']['.$this->getLevelStr($level).'] '.$msg."\n";
             $this->handler->write($msg);
         }
     }

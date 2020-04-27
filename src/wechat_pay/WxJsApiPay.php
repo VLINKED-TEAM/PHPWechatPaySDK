@@ -31,6 +31,12 @@ class WxJsApiPay
      */
     private $myPayConfig;
 
+
+    /**
+     * curl 请求超时时长
+     * @var int
+     */
+    private $curl_timeout = 30;
     /**
      * WxJsApiPay constructor.
      * @param $myPayConfig WxPayConfigInterface
@@ -66,32 +72,34 @@ class WxJsApiPay
         }
     }
 
+
     /**
      *
      * 获取jsapi支付的参数
      * @param array $UnifiedOrderResult 统一支付接口返回的数据
-     * @return string  json数据，可直接填入js函数作为参数
      * @throws WxPayException
-     *
+     * @return string json数据，可直接填入js函数作为参数
      */
-    public function GetJsApiParameters($appid, $prepay_id)
+    public function GetJsApiParameters($UnifiedOrderResult)
     {
-        if (empty($appid)
-            || empty($prepay_id)
-        ) {
+        if(!array_key_exists("appid", $UnifiedOrderResult)
+            || !array_key_exists("prepay_id", $UnifiedOrderResult)
+            || $UnifiedOrderResult['prepay_id'] == "")
+        {
             throw new WxPayException("参数错误");
         }
 
         $jsapi = new WxPayJsApiPay();
-        $jsapi->SetAppid($appid);
+        $jsapi->SetAppid($UnifiedOrderResult["appid"]);
         $timeStamp = time();
         $jsapi->SetTimeStamp("$timeStamp");
         $jsapi->SetNonceStr(WxPayApi::getNonceStr());
-        $jsapi->SetPackage("prepay_id=" . $prepay_id);
-        $jsapi->SetPaySign($jsapi->MakeSign($this->myPayConfig));
-        return json_encode($jsapi->GetValues());
-    }
+        $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
 
+        $jsapi->SetPaySign($jsapi->MakeSign($this->myPayConfig));
+        $parameters = json_encode($jsapi->GetValues());
+        return $parameters;
+    }
     /**
      *
      * 通过code从工作平台获取openid机器access_token
@@ -106,7 +114,7 @@ class WxJsApiPay
         //初始化curl
         $ch = curl_init();
         $curlVersion = curl_version();
-        $config = new WxPayConfig();
+        $config = $this->myPayConfig;
         $ua = "WXPaySDK/3.0.9 (" . PHP_OS . ") PHP/" . PHP_VERSION . " CURL/" . $curlVersion['version'] . " "
             . $config->GetMerchantId();
 

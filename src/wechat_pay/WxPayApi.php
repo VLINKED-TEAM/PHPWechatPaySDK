@@ -31,7 +31,7 @@ class WxPayApi
      * @param WxPayConfigInterface $config 配置对象
      * @param WxPayUnifiedOrder $inputObj
      * @param int $timeOut
-     * @return 成功时返回，其他抛异常
+     * @return array|bool 成功时返回，其他抛异常
      * @throws WxPayException
      */
     public static function unifiedOrder($config, $inputObj, $timeOut = 6)
@@ -85,7 +85,7 @@ class WxPayApi
      * @param WxPayConfigInterface $config 配置对象
      * @param WxPayOrderQuery $inputObj
      * @param int $timeOut
-     * @return WxPayResults 成功时返回，其他抛异常
+     * @return string WxPayResults 成功时返回，其他抛异常
      * @throws WxPayException
      */
     public static function orderQuery($config, $inputObj, $timeOut = 6)

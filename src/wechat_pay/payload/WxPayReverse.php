@@ -3,7 +3,7 @@
 
 namespace VlinkedWechatPay\payload;
 
-
+use VlinkedWechatPay\payload\base\WxPayDataBase;
 /**
  *
  * 撤销输入对象

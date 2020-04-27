@@ -5,7 +5,7 @@ namespace VlinkedWechatPay\payload;
 
 
 use VlinkedWechatPay\base\WxPayConfigInterface;
-
+use VlinkedWechatPay\payload\base\WxPayDataBase;
 /**
  *
  * 只使用md5算法进行签名， 不管配置的是什么签名方式，都只支持md5签名方式

@@ -6,7 +6,7 @@
  * Time: 17:46
  */
 
-namespace VlinkedWechatPay\payload;
+namespace VlinkedWechatPay\payload\base;
 
 use VlinkedWechatPay\base\WxPayConfigInterface;
 use VlinkedWechatPay\WxPayException;
