@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VlinkedWechatPay;
+namespace VlinkedWechatPay\exception;
 
 
 use Exception;

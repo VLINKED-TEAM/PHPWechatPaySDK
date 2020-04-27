@@ -1,16 +1,13 @@
 <?php
 
 
-namespace VlinkedWechatPay;
+namespace VlinkedWechatPay\lib;
 
 
 use VlinkedWechatPay\base\WxPayConfigInterface;
 use VlinkedWechatPay\payload\WxPayCloseOrder;
 use VlinkedWechatPay\payload\WxPayDownloadBill;
 use VlinkedWechatPay\payload\WxPayNotifyResults;
-use VlinkedWechatPay\payload\WxPayOrderQuery;
-use VlinkedWechatPay\payload\WxPayRefund;
-use VlinkedWechatPay\payload\WxPayRefundQuery;
 use VlinkedWechatPay\payload\WxPayReport;
 use VlinkedWechatPay\payload\WxPayResults;
 use VlinkedWechatPay\payload\WxPayReverse;

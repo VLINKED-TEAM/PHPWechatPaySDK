@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VlinkedWechatPay;
+namespace VlinkedWechatPay\lib;
 
 
 use VlinkedWechatPay\base\WxPayConfigInterface;
