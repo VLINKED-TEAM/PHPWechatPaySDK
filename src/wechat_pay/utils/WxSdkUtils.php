@@ -9,6 +9,12 @@ use VlinkedWechatPay\exception\WxPayException;
 
 class WxSdkUtils
 {
+    /**
+     * SDK版本号
+     * @var string
+     */
+    public static $VERSION = "3.0.10";
+
     public static function getNonceStr($length = 32)
     {
         $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,6 +23,25 @@ class WxSdkUtils
             $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
         }
         return $str;
+    }
+    /**
+     *
+     * 拼接签名字符串
+     * @param array $urlObj
+     *
+     * @return string 返回已经拼接好的字符串
+     */
+    public static function ToUrlParams($urlObj)
+    {
+        $buff = "";
+        foreach ($urlObj as $k => $v) {
+            if ($k != "sign") {
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
+
+        $buff = trim($buff, "&");
+        return $buff;
     }
 
     public static function getMillisecond()
@@ -30,11 +55,12 @@ class WxSdkUtils
     }
 
     /**
-     * @param $config WxPayConfigInterface
-     * @param $xml
-     * @param $url
-     * @param bool $useCert
-     * @param int $second
+     * 以post方式提交xml到对应的接口url
+     * @param $config WxPayConfigInterface $config  配置对象
+     * @param string $xml  需要post的xml数据
+     * @param string $url  url
+     * @param bool $useCert  是否需要证书，默认不需要
+     * @param int $second   url执行超时时间，默认30s
      * @return bool|string
      * @throws WxPayException
      */

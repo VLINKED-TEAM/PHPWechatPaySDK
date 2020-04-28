@@ -11,7 +11,9 @@ use VlinkedWechatPay\payload\WxPayNotifyResults;
 use VlinkedWechatPay\payload\WxPayReport;
 use VlinkedWechatPay\payload\WxPayResults;
 use VlinkedWechatPay\payload\WxPayReverse;
-use VlinkedWechatPay\payload\WxPayUnifiedOrder;
+use VlinkedWechatPay\base\WxPayUnifiedOrder;
+use VlinkedWechatPay\base\WxPayOrderQuery;
+use VlinkedWechatPay\base\WxPayRefund;
 
 class WxPayApi
 {
@@ -179,43 +181,7 @@ class WxPayApi
         return $result;
     }
 
-    /**
-     *
-     * 查询退款
-     * 提交退款申请后，通过调用该接口查询退款状态。退款有一定延时，
-     * 用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日后重新查询退款状态。
-     * WxPayRefundQuery中out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个
-     * appid、mchid、spbill_create_ip、nonce_str不需要填入
-     * @param WxPayConfigInterface $config 配置对象
-     * @param WxPayRefundQuery $inputObj
-     * @param int $timeOut
-     * @return 成功时返回，其他抛异常
-     * @throws WxPayException
-     */
-    public static function refundQuery($config, $inputObj, $timeOut = 6)
-    {
-        $url = "https://api.mch.weixin.qq.com/pay/refundquery";
-        //检测必填参数
-        if (!$inputObj->IsOut_refund_noSet() &&
-            !$inputObj->IsOut_trade_noSet() &&
-            !$inputObj->IsTransaction_idSet() &&
-            !$inputObj->IsRefund_idSet()) {
-            throw new WxPayException("退款查询接口中，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
-        }
-        $inputObj->SetAppid($config->GetAppId());//公众账号ID
-        $inputObj->SetMch_id($config->GetMerchantId());//商户号
-        $inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 
-        $inputObj->SetSign($config);//签名
-        $xml = $inputObj->ToXml();
-
-        $startTimeStamp = self::getMillisecond();//请求开始时间
-        $response = self::postXmlCurl($config, $xml, $url, false, $timeOut);
-        $result = WxPayResults::Init($config, $response);
-        self::reportCostTime($config, $url, $startTimeStamp, $result);//上报请求花费时间
-
-        return $result;
-    }
 
     /**
      * 下载对账单，WxPayDownloadBill中bill_date为必填参数
@@ -395,7 +361,7 @@ class WxPayApi
      *
      * 上报数据， 上报的时候将屏蔽所有异常流程
      * @param WxPayConfigInterface $config 配置对象
-     * @param string $usrl
+     * @param string $url
      * @param int $startTimeStamp
      * @param array $data
      */

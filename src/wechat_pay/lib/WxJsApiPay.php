@@ -5,7 +5,7 @@ namespace VlinkedWechatPay\lib;
 
 
 use VlinkedWechatPay\base\WxPayConfigInterface;
-use VlinkedWechatPay\payload\WxPayJsApiPay;
+use VlinkedWechatPay\base\WxPayJsApiPay;
 
 class WxJsApiPay
 {
