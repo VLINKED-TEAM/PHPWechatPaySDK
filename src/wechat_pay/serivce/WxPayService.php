@@ -124,7 +124,7 @@ class WxPayService
     }
 
     /**
-     * @param $wxPayUnifiedOrder
+     * @param $wxPayUnifiedOrder WxPayUnifiedOrder
      * @return array
      * @throws WxPayException
      */
