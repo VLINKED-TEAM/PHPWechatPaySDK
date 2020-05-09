@@ -11,7 +11,24 @@ namespace VlinkedWechatPay\base;
  */
 class WxPayJsApiPay extends WxPayBaseClass
 {
+    /**
+     * 设置微信分配的公众账号ID
+     * @param string $value
+     **/
+    public function SetAppid($value)
+    {
+        $this->values['appId'] = $value;
+    }
 
+    /**
+     * 获取微信分配的公众账号ID的值
+     * @return string 值
+     **/
+    public function GetAppid()
+    {
+       return $this->values['appId'];
+    }
+    
     /**
      * 设置支付时间戳
      * @param string $value
