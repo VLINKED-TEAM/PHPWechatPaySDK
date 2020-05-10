@@ -1,0 +1,43 @@
+[
+    {
+        "name": "vlinked/utils",
+        "version": "1.8.0",
+        "version_normalized": "1.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/VLINKED-TEAM/PHPUtils.git",
+            "reference": "26536b7c83883029f7178a411dff0f55ee25b9a8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/VLINKED-TEAM/PHPUtils/zipball/26536b7c83883029f7178a411dff0f55ee25b9a8",
+            "reference": "26536b7c83883029f7178a411dff0f55ee25b9a8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6.0"
+        },
+        "time": "2020-04-29T06:28:27+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "VlinkedUtils\\": "src/VlinkedUtils"
+            },
+            "classmap": [
+                "src/exception.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "jrexe",
+                "email": "jrexejrexe@gmail.com"
+            }
+        ],
+        "description": "vlinked tools collection"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "vlinked/utils",
+    "description": "vlinked tools collection",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "VlinkedUtils\\": "src/VlinkedUtils"
+        },
+        "classmap": [
+            "src/exception.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "jrexe",
+            "email": "jrexejrexe@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    }
+}
